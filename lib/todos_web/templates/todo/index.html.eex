@@ -1,0 +1,20 @@
+<h1>Hello to todos</h1>
+<div style="display: flex;">
+  <div style="flex: 0 0 50%;">
+    Title
+  </div>
+  <div style="flex: 0 0 50%;">
+    Description
+  </div>
+</div>
+
+<%= for %{title: title, description: description} <- @todos do %>
+  <div style="display: flex;">
+    <div style="flex: 0 0 50%;">
+      <%= title %>
+    </div>
+    <div style="flex: 0 0 50%;">
+      <%= description %>
+    </div>
+  </div>
+<% end %>
