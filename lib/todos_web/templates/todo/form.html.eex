@@ -1,0 +1,15 @@
+<%= form_for @changeset, @action, @form_options, fn f -> %>
+    <div>
+        <%= label f, :title %>
+        <%= text_input f, :title %>
+        <%= error_tag f, :title %>
+    </div>
+
+    <div>
+        <%= label f, :description %>
+        <%= text_input f, :description %>
+        <%= error_tag f, :description %>
+    </div>
+
+    <%= submit "Submit" %>
+<% end %>

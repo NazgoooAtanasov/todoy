@@ -1,20 +1,35 @@
 <h1>Hello to todos</h1>
 <div style="display: flex;">
-  <div style="flex: 0 0 50%;">
+  <div style="flex: 0 0 33%;">
+    ID
+  </div>
+  <div style="flex: 0 0 33%;">
     Title
   </div>
-  <div style="flex: 0 0 50%;">
+  <div style="flex: 0 0 33%;">
     Description
   </div>
 </div>
 
-<%= for %{title: title, description: description} <- @todos do %>
+<%= for %{id: id, title: title, description: description} <- @todos do %>
   <div style="display: flex;">
-    <div style="flex: 0 0 50%;">
+    <div style="flex: 0 0 33%;">
+      <%= id %>
+    </div>
+    <div style="flex: 0 0 33%;">
       <%= title %>
     </div>
-    <div style="flex: 0 0 50%;">
+    <div style="flex: 0 0 33%;">
       <%= description %>
     </div>
   </div>
 <% end %>
+
+
+
+<div class="search-todo__wrapper" style="display: flex; justify-content: flex-end">
+  <form action=<%= Routes.todo_path(TodosWeb.Endpoint, :get)%> class="search-todo" style="flex: 0 0 50%" method="get">
+    <input name="todo_id" type="text" />
+    <button type="submit"> Submitt </button>
+  </form>
+</div>

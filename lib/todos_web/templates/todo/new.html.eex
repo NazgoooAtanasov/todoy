@@ -1,0 +1,3 @@
+<%= render TodosWeb.TodoView, "form.html",
+    changeset: @changeset, action: Routes.todo_path(TodosWeb.Endpoint, :create),
+    form_options: [method: "post"] %>

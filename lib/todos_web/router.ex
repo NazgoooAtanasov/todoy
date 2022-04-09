@@ -18,7 +18,8 @@ defmodule TodosWeb.Router do
 
     get "/", PageController, :index
 
-    get "/todos", TodoController, :index
+    resources "/todos", TodoController, except: [:show]
+    get "/todos/get", TodoController, :get
   end
 
   # Other scopes may use custom stacks.

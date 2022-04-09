@@ -1,0 +1,24 @@
+<%= if !is_nil(@todo) do %>
+    <div class="todo">
+        <div class="todo__id">
+            <span> ID: </span>
+            <%= @todo.id %>
+        </div>
+        <div class="todo__title">
+            <span> Title: </span>
+            <%= @todo.title %>
+        </div>
+        <div class="todo__description">
+            <span> Description: </span>
+            <%= @todo.description %>
+        </div>
+    </div>
+
+    <%= link "Update",
+        to: Routes.todo_path(TodosWeb.Endpoint, :edit, @todo.id)
+    %>
+    <%= link "Delete",
+        to: Routes.todo_path(TodosWeb.Endpoint, :delete, @todo.id),
+        method: :delete
+    %>
+<% end %>
