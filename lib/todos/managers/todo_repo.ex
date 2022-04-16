@@ -8,6 +8,10 @@ defmodule Todos.TodosManager.TodoRepo do
     all(Todo)
   end
 
+  def list_unassigned_todos do
+    all(from t in Todo, where: is_nil(t.table_id))
+  end
+
   def get_by_id(id) do
     # TODO(n): Check for error!
     one(from t in Todo, where: t.id == ^id)
