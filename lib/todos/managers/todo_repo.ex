@@ -2,7 +2,7 @@ defmodule Todos.TodosManager.TodoRepo do
   import Ecto.Query
   import Todos.Repo
 
-  alias Todos.TodosManager.Todo
+  alias Todos.Todo
 
   def list_todos do
     all(Todo)

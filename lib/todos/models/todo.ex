@@ -1,4 +1,4 @@
-defmodule Todos.TodosManager.Todo do
+defmodule Todos.Todo do
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -6,6 +6,7 @@ defmodule Todos.TodosManager.Todo do
   schema "todos" do
     field :description, :string
     field :title, :string
+    belongs_to :table, Todos.Table
 
     timestamps()
   end
