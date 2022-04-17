@@ -2,7 +2,7 @@ defmodule TodosWeb.TodoController do
   use TodosWeb, :controller
   alias Todos.TodosManager.TodoRepo
   alias TodosWeb.Router.Helpers, as: Routes
-  alias Todos.TodosManager.Todo
+  alias Todos.Todo
 
   def index(conn, _params) do
     todos = TodoRepo.list_todos

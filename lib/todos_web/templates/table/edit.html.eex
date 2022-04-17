@@ -1,0 +1,23 @@
+<%= render TodosWeb.LayoutView, "form.html",
+    changeset: @changeset, action: Routes.table_path(TodosWeb.Endpoint, :update, @table_id),
+    form_options: [method: "put"] %>
+
+<div> Add todos </div>
+
+<div class="flex flex--col-of-four">
+    <div>ID</div>
+    <div>Title</div>
+    <div>Description</div>
+</div>
+
+<%= for %{id: id, title: title, description: description} <- @todos do %>
+    <div class="flex flex--col-of-four">
+        <div><%= id %></div>
+        <div><%= title %></div>
+        <div><%= description %></div>
+        <%= link "Add",
+            method: "put",
+            to: Routes.table_path(TodosWeb.Endpoint, :add_todo, todo_id: id, table_id: @table_id)
+        %>
+    </div>
+<% end %>

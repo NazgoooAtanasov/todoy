@@ -1,0 +1,36 @@
+<%= if !is_nil(@table) do %>
+    <div class="table">
+        <div class="todo__id">
+            <span> ID: </span>
+            <%= @table.id %>
+        </div>
+        <div class="table__title">
+            <span> Title: </span>
+            <%= @table.title %>
+        </div>
+        <div class="table__description">
+            <span> Description: </span>
+            <%= @table.description %>
+        </div>
+    </div>
+
+    <div class="todos">
+        <h3> TODOS </h3>
+        <div class="flex flex--col-of-tree">
+            <div>ID</div>
+            <div>Title</div>
+            <div>Title</div>
+        </div>
+        <%= for %{id: id, title: title, description: description} <- @table.todos do %>
+            <div class="flex flex--col-of-tree">
+                <div><%= id %></div>
+                <div><%= title %></div>
+                <div><%= description %></div>
+            </div>
+        <% end %>
+    </div>
+
+    <%= link "Update",
+        to: Routes.table_path(TodosWeb.Endpoint, :edit, @table.id)
+    %>
+<% end %>

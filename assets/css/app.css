@@ -34,3 +34,19 @@
   display: block;
   margin: -1rem 0 2rem;
 }
+
+.flex {
+  display: flex;
+}
+
+.flex--col-of-two * {
+  flex: 0 0 50%;
+}
+
+.flex--col-of-tree * {
+  flex: 0 0 33.33%;
+}
+
+.flex--col-of-four * {
+  flex: 0 0 25%;
+}

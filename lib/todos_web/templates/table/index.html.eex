@@ -1,0 +1,26 @@
+<h1>Tables</h1>
+<div style="display: flex;">
+  <div style="flex: 0 0 33%;">
+    ID
+  </div>
+  <div style="flex: 0 0 33%;">
+    Title
+  </div>
+  <div style="flex: 0 0 33%;">
+    Description
+  </div>
+</div>
+
+<%= for %{id: id, title: title, description: description} <- @tables do %>
+  <div style="display: flex;">
+    <div style="flex: 0 0 33%;">
+      <%= id %>
+    </div>
+    <div style="flex: 0 0 33%;">
+      <%= title %>
+    </div>
+    <div style="flex: 0 0 33%;">
+      <%= description %>
+    </div>
+  </div>
+<% end %>
