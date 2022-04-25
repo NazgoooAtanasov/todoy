@@ -22,6 +22,9 @@
               <li>
                 <%= link "Sign in", to: Routes.auth_path(@conn, :login_show) %>
               </li>
+              <li>
+                <%= link "Sign up", to: Routes.auth_path(@conn, :create_show) %>
+              </li>
             <%= end %>
 
             <%= if is_nil(Plug.Conn.get_session(@conn, :current_user)) == false do %>

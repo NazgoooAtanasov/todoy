@@ -1,6 +1,5 @@
 defmodule TodosWeb.AuthController do
   import Phoenix.Controller
-  import Plug.Conn
   use TodosWeb, :controller
 
   alias Todos.UserManager
@@ -20,8 +19,7 @@ defmodule TodosWeb.AuthController do
         |> put_flash(:info, "Successful register")
         |> redirect(to: Routes.todo_path(conn, :index))
 
-      {:error, changeset} ->
-        # @FIXME - If the password field is empty the form is not displayed as invalid, it just rerenders it.
+      {:error, %Ecto.Changeset{} = changeset} ->
         conn
         |> render("signup.html", changeset: changeset, action: Routes.auth_path(conn, :create))
     end
@@ -43,11 +41,13 @@ defmodule TodosWeb.AuthController do
         |> put_flash(:info, "Logged in!")
         |> redirect(to: Routes.todo_path(conn, :index))
 
-      # @FIXME: Some errors are not handled!
       {:error, error_msg} ->
         conn
         |> put_flash(:error, error_msg)
-        |> render("signin.html", changeset: nil, action: Routes.auth_path(conn, :login))
+        |> render(
+          "signin.html",
+          changeset: User.changeset(%User{}, %{}),
+          action: Routes.auth_path(conn, :login))
     end
   end
 
