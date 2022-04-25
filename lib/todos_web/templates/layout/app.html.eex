@@ -17,6 +17,21 @@
             <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
               <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
             <% end %>
+
+            <%= if is_nil(Plug.Conn.get_session(@conn, :current_user)) == true do %>
+              <li>
+                <%= link "Sign in", to: Routes.auth_path(@conn, :login_show) %>
+              </li>
+            <%= end %>
+
+            <%= if is_nil(Plug.Conn.get_session(@conn, :current_user)) == false do %>
+              <li>
+                <%= Plug.Conn.get_session(@conn, :current_user).email %>
+              </li>
+              <li>
+                <%= link "Log out", to: Routes.auth_path(@conn, :logout) %>
+              </li>
+            <%= end %>
           </ul>
         </nav>
         <a href="https://phoenixframework.org/" class="phx-logo">

@@ -1,4 +1,4 @@
-defmodule Todos.UserManager.UserManager do
+defmodule Todos.UserManager do
   import Ecto.Changeset
   import Todos.Repo
   import Ecto.Query
@@ -18,11 +18,11 @@ defmodule Todos.UserManager.UserManager do
         |> put_change(:password_hash, hash)
 
       case insert(changeset) do
-        {:ok, _info} -> {:ok}
-        {:error, info} -> {:error, info.errors}
+        {:ok, info} -> {:ok, info}
+        {:error, info} -> {:error, info}
       end
     else
-      {:error, changeset.errors}
+      {:error, changeset}
     end
   end
 

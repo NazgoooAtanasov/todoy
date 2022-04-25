@@ -24,6 +24,18 @@ defmodule TodosWeb.Router do
     put "/add_todo", TableController, :add_todo
   end
 
+  scope "/auth", TodosWeb do
+    pipe_through :browser
+
+    get "/signup", AuthController, :create_show
+    post "/singup", AuthController, :create
+
+    get "/signin", AuthController, :login_show
+    post "/signin", AuthController, :login
+    
+    get "/logout", AuthController, :logout
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", TodosWeb do
   #   pipe_through :api
