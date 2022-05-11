@@ -1,3 +1,0 @@
-<%= render TodosWeb.LayoutView, "form.html",
-    changeset: @changeset, action: Routes.todo_path(TodosWeb.Endpoint, :update, @id),
-    form_options: [method: "put"] %>

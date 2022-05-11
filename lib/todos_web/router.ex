@@ -37,9 +37,16 @@ defmodule TodosWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", TodosWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", TodosWeb do
+    pipe_through :api
+
+    get "/todos", TodoController, :index
+    get "/todos/get", TodoController, :get
+
+    post "/todos/create", TodoController, :create
+    put "/todos/update/:id", TodoController, :update
+    delete "/todos/delete/:id", TodoController, :delete
+  end
 
   # Enables LiveDashboard only for development
   #

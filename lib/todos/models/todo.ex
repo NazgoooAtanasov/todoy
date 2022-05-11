@@ -2,7 +2,7 @@ defmodule Todos.Todo do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @derive {Jason.Encoder, except: [:__meta__]}
+  @derive {Jason.Encoder, except: [:__meta__, :table, :table_id]}
   schema "todos" do
     field :description, :string
     field :title, :string

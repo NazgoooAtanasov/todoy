@@ -1,4 +1,0 @@
-<h1>New Todo</h1>
-<%= render TodosWeb.LayoutView, "form.html",
-    changeset: @changeset, action: Routes.todo_path(TodosWeb.Endpoint, :create),
-    form_options: [method: "post"] %>
