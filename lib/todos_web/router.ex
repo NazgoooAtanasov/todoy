@@ -14,14 +14,10 @@ defmodule TodosWeb.Router do
   end
 
   scope "/api/auth", TodosWeb do
-    pipe_through :browser
+    pipe_through :api
 
-    get "/signup", AuthController, :create_show
     post "/singup", AuthController, :create
-
-    get "/signin", AuthController, :login_show
     post "/signin", AuthController, :login
-    
     get "/logout", AuthController, :logout
   end
 

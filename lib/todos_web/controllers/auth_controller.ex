@@ -6,54 +6,33 @@ defmodule TodosWeb.AuthController do
   alias Todos.User
   alias TodosWeb.Router.Helpers, as: Routes
 
-  def create_show(conn, _params) do
-    changeset = User.changeset %User{}, %{}
-    render conn, "signup.html", changeset: changeset, action: Routes.auth_path(conn, :create)
-  end
-
   def create(conn, %{"user" => params}) do
     case UserManager.create_user(params) do
-      {:ok, user} ->
+      {:ok, _user} ->
         conn
-        |> put_session(:current_user, user)
-        |> put_flash(:info, "Successful register")
-        |> redirect(to: Routes.todo_path(conn, :index))
+        |> put_status(201)
+        |> json(%{})
 
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
-        |> render("signup.html", changeset: changeset, action: Routes.auth_path(conn, :create))
+        |> render("errors.json", errors: Ecto.Changeset.traverse_errors(changeset, fn {msg, _opts} -> msg end))
     end
   end
 
-  def login_show(conn, _params) do
-    changeset = User.changeset %User{}, %{}
-    render conn, "signin.html", changeset: changeset, action: Routes.auth_path(conn, :login)
-  end
-
   # @TODO: Remove the flash messages.
+  # @TODO: JWT
   def login(conn, %{"user" => params}) do
     %{"email" => email, "password" => password} = params
 
     case UserManager.validate_user(%{email: email, password: password}) do
       {:ok, %Todos.User{} = user} ->
-        conn
-        |> put_session(:current_user, user)
-        |> put_flash(:info, "Logged in!")
-        |> redirect(to: Routes.todo_path(conn, :index))
+        {:ok, token, _claims} = Todos.Guardian.encode_and_sign(user)
+        render conn, "jwt.json", token: token
 
       {:error, error_msg} ->
         conn
-        |> put_flash(:error, error_msg)
-        |> render(
-          "signin.html",
-          changeset: User.changeset(%User{}, %{}),
-          action: Routes.auth_path(conn, :login))
+        |> put_status(401)
+        |> render("errors.json", errors: %{error: error_msg})
     end
-  end
-
-  def logout(conn, _params) do
-    conn
-    |> delete_session(:current_user)
-    |> redirect(to: Routes.todo_path(conn, :index))
   end
 end
