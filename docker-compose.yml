@@ -13,3 +13,16 @@ services:
 
     volumes:
       - ./db-data/:/var/lib/postgres/data/
+
+  phx:
+    build: .
+    depends_on:
+      - database
+    environment:
+      MIX_ENV: dev
+    env_file:
+      - .env
+    ports:
+      - 4000:4000
+    volumes:
+      - .:/app

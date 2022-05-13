@@ -2,10 +2,7 @@ use Mix.Config
 
 # Configure your database
 config :todos, Todos.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "todos_dev",
-  hostname: "localhost",
+  url: System.get_env("DATABASE_URL"),
   template: "template0",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -20,16 +17,7 @@ config :todos, TodosWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
-  check_origin: false,
-  watchers: [
-    node: [
-      "node_modules/webpack/bin/webpack.js",
-      "--mode",
-      "development",
-      "--watch-stdin",
-      cd: Path.expand("../assets", __DIR__)
-    ]
-  ]
+  check_origin: false
 
 # ## SSL Support
 #
