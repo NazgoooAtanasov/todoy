@@ -3,8 +3,6 @@ defmodule TodosWeb.AuthController do
   use TodosWeb, :controller
 
   alias Todos.UserManager
-  alias Todos.User
-  alias TodosWeb.Router.Helpers, as: Routes
 
   def create(conn, %{"user" => params}) do
     case UserManager.create_user(params) do
@@ -19,8 +17,6 @@ defmodule TodosWeb.AuthController do
     end
   end
 
-  # @TODO: Remove the flash messages.
-  # @TODO: JWT
   def login(conn, %{"user" => params}) do
     %{"email" => email, "password" => password} = params
 

@@ -44,7 +44,6 @@ defmodule TodosWeb.TodoController do
         conn
         |> render("todo.json", todo: todo)
 
-      # @FIXME: Investiage what happens if there is an error and how it should be handled.
       {:error, changeset} ->
         conn
         |> put_status(400)
