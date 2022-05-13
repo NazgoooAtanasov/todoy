@@ -13,18 +13,7 @@ defmodule TodosWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", TodosWeb do
-    pipe_through :browser
-
-    resources "/todos", TodoController
-    get "/todos/get", TodoController, :get
-    get "/", TodoController, :index
-
-    resources "/tables", TableController
-    put "/add_todo", TableController, :add_todo
-  end
-
-  scope "/auth", TodosWeb do
+  scope "/api/auth", TodosWeb do
     pipe_through :browser
 
     get "/signup", AuthController, :create_show
@@ -37,15 +26,23 @@ defmodule TodosWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  scope "/api", TodosWeb do
+  scope "/api/todos", TodosWeb do
     pipe_through :api
 
-    get "/todos", TodoController, :index
-    get "/todos/get", TodoController, :get
+    get "/", TodoController, :index
+    get "/get/:id", TodoController, :get
+    post "/create", TodoController, :create
+    put "/update/:id", TodoController, :update
+    delete "/delete/:id", TodoController, :delete
+  end
 
-    post "/todos/create", TodoController, :create
-    put "/todos/update/:id", TodoController, :update
-    delete "/todos/delete/:id", TodoController, :delete
+  scope "/api/tables", TodosWeb do
+    pipe_through :api
+
+    get "/", TableController, :index
+    get "/get/:id", TableController, :get
+    post "/create", TableController, :create
+    put "/todos", TableController, :add_todo
   end
 
   # Enables LiveDashboard only for development

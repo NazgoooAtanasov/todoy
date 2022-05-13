@@ -19,7 +19,7 @@ defmodule TodosWeb.TodoController do
       end
   end
 
-  def get(conn, %{"todo_id" => params}) do
+  def get(conn, %{"id" => params}) do
     todo = TodoRepo.get_by_id(params)
 
     render conn, "todo.json", todo: todo
