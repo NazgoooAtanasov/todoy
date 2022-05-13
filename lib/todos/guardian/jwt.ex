@@ -9,7 +9,7 @@ defmodule Todos.Guardian do
   def subject_for_token(_, _), do: {:error, :reason}
 
   def resource_from_claims(%{"sub" => id}) do
-    user = Todos.UserManager.find_user(id)
+    user = Todos.UserManager.find_user(id, :id)
     {:ok, user}
   end
 
