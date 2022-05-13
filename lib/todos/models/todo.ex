@@ -2,7 +2,8 @@ defmodule Todos.Todo do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @derive {Jason.Encoder, except: [:__meta__]}
+  # remove the :table, :table_id from exlusion. find a way to preload properly.
+  @derive {Jason.Encoder, except: [:__meta__, :table, :table_id]}
   schema "todos" do
     field :description, :string
     field :title, :string
