@@ -18,8 +18,10 @@ defmodule Todos.TodosManager.TodoRepo do
     one(from t in Todo, where: t.id == ^id)
   end
 
-  def create_todo(attrs) do
+  def create_todo(attrs, user) do
     get_changeset(%Todo{}, attrs)
+    |> Ecto.Changeset.change()
+    |> Ecto.Changeset.put_assoc(:user, user)
     |> insert()
   end
 
