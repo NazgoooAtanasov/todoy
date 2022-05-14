@@ -6,7 +6,12 @@ defmodule TodosWeb.TodoView do
   end
 
   def render("todo.json", %{todo: todo}) do
-    todo
+    %{
+      id: todo.id,
+      name: todo.title,
+      description: todo.description,
+      tableId: todo.table_id
+    }
   end
 
   def render("errors.json", %{errors: errors}) do

@@ -6,6 +6,7 @@ defmodule Todos.TodosManager.TodoRepo do
 
   def list_todos do
     all(Todo)
+    |> Todos.Repo.preload(:table)
   end
 
   def list_unassigned_todos do
