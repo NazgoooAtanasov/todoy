@@ -4,7 +4,9 @@ defmodule Todos.TableManager.TableRepo do
 
   alias Todos.Table
 
-  def list_tables, do: all(Table)
+  def list_tables, do: 
+    all(Table) 
+    |> Todos.Repo.preload(:todos)
 
   def create_table(attrs) do
     Table.changeset(%Table{}, attrs)
@@ -12,7 +14,7 @@ defmodule Todos.TableManager.TableRepo do
   end
 
   def get_by_id(id) do
-    one(from t in Table, where: t.id == ^id, preload: [:todos])
+    one(from t in Table, where: t.id == ^id, preload: :todos)
   end
 
   def attatch_todo_to_table(table, todo) do

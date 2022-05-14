@@ -4,7 +4,7 @@ defmodule TodosWeb.TodoController do
 
   def index(conn, _params) do
     todos = TodoRepo.list_todos
-    render conn, "index.json", todos: todos
+    render conn, "todos.json", todos: todos
   end
 
   def create(conn, %{"todo" => params}) do

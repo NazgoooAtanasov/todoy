@@ -6,7 +6,14 @@ defmodule TodosWeb.TableView do
   end
 
   def render("table.json", %{table: table}) do
-    table
+    %{
+      table: %{
+        id: table.id,
+        name: table.description,
+        description: table.description
+      },
+      todos: render_many(table.todos, TodosWeb.TodoView, "todo.json")
+    }
   end
 
   def render("errors.json", %{errors: errors}) do
