@@ -8,6 +8,7 @@ defmodule Todos.Todo do
     field :description, :string
     field :title, :string
     belongs_to :table, Todos.Table
+    belongs_to :user, Todos.User
 
     timestamps()
   end
