@@ -12,17 +12,26 @@ services:
       POSTGRES_DB: todos_dev
 
     volumes:
-      - ./db-data/:/var/lib/postgres/data/
+      - ./be/db-data/:/var/lib/postgres/data/
 
   phx:
-    build: .
+    build: ./be
     depends_on:
       - database
     environment:
       MIX_ENV: dev
     env_file:
-      - .env
+      - ./be/.env
     ports:
       - 4000:4000
     volumes:
-      - .:/app
+      - ./be:/app
+
+  phx-fe:
+    build: ./fe
+    depends_on:
+      - phx
+    ports:
+      - 4001:4001
+    volumes:
+      - ./fe:/app
