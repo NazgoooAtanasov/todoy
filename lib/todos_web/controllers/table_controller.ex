@@ -4,7 +4,7 @@ defmodule TodosWeb.TableController do
   alias Todos.TodosManager.TodoRepo
 
   def index(conn, _args) do
-    tables = TableRepo.list_tables()
+    tables = TableRepo.list_tables(conn.assigns[:user])
     render conn, "tables.json", tables: tables
   end
 

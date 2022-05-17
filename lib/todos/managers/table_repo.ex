@@ -4,8 +4,8 @@ defmodule Todos.TableManager.TableRepo do
 
   alias Todos.Table
 
-  def list_tables, do: 
-    all(Table) 
+  def list_tables(%Todos.User{} = user), do: 
+    all(from t in Table, where: t.user_id == ^user.id) 
     |> Todos.Repo.preload(:todos)
 
   def create_table(attrs, user) do
