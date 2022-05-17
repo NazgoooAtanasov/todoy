@@ -37,7 +37,7 @@ defmodule TodosWeb.Router do
   scope "/api/auth", TodosWeb do
     pipe_through :api
 
-    post "/singup", AuthController, :create
+    post "/signup", AuthController, :create
     post "/signin", AuthController, :login
     get "/logout", AuthController, :logout
   end

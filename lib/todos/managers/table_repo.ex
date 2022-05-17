@@ -9,9 +9,18 @@ defmodule Todos.TableManager.TableRepo do
     |> Todos.Repo.preload(:todos)
 
   def create_table(attrs, user) do
-    Table.changeset(%Table{}, attrs)
-    |> Ecto.Changeset.put_assoc(:user, user)
-    |> insert
+    changeset = Table.changeset(%Table{}, attrs)
+
+    if changeset.valid? do
+      table = changeset
+      |> Ecto.Changeset.put_assoc(:user, user)
+      |> insert!
+      |> Todos.Repo.preload(:todos)
+
+      {:ok, table}
+    else
+      {:error, changeset}
+    end
   end
 
   def get_by_id(id) do
