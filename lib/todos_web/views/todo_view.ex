@@ -10,7 +10,8 @@ defmodule TodosWeb.TodoView do
       id: todo.id,
       name: todo.title,
       description: todo.description,
-      tableId: todo.table_id
+      tableId: todo.table_id,
+      userId: todo.user_id
     }
   end
 

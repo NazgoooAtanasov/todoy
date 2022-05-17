@@ -9,7 +9,7 @@ defmodule TodosWeb.TableController do
   end
 
   def create(conn, %{"table" => table}) do
-    case TableRepo.create_table(table) do
+    case TableRepo.create_table(table, conn.assigns[:user]) do
       {:ok, result} ->
         conn
         |> render("table.json", table: result)
@@ -22,8 +22,15 @@ defmodule TodosWeb.TableController do
   end
 
   def get(conn, %{"id" => id}) do
-    table = TableRepo.get_by_id(id)
-    render conn, "table.json", table: table
+    case TableRepo.get_by_id(id) do
+      table when is_nil(table) == false ->
+        render conn, "table.json", table: table
+
+      _ ->
+        conn
+        |> put_status(404)
+        |> json(%{})
+    end
   end
 
   def add_todo(conn, %{"table_id" => table_id, "todo_id" => todo_id}) do

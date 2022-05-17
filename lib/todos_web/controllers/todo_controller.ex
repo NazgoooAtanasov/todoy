@@ -8,7 +8,7 @@ defmodule TodosWeb.TodoController do
   end
 
   def create(conn, %{"todo" => params}) do
-      case TodoRepo.create_todo(params) do
+      case TodoRepo.create_todo(params, conn.assigns[:user]) do
         {:ok, todo} ->
           render conn, "todo.json", todo: todo 
 
@@ -20,9 +20,15 @@ defmodule TodosWeb.TodoController do
   end
 
   def get(conn, %{"id" => params}) do
-    todo = TodoRepo.get_by_id(params)
+    case TodoRepo.get_by_id(params) do
+      todo when is_nil(todo) == false ->
+        render conn, "todo.json", todo: todo
 
-    render conn, "todo.json", todo: todo
+      _ ->
+        conn
+        |> put_status(404)
+        |> json(%{})
+    end
   end
 
   def update(conn, %{"todo" => attrs, "id" => id}) do
